@@ -7,11 +7,13 @@ rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
 
     def show
         render json: find_restaurant, 
-        status: :ok
+        status: :ok, serializer: PizzaForRestaurantSerializer
     end
 
     def destroy 
-
+        restaurant = find_restaurant
+        restaurant.destroy
+        head :no_content
     end 
 
     private 
